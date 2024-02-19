@@ -13,22 +13,27 @@ const Input = ({placeholder, name, type, value, handleChange}) => (
            name={name} 
            value = {value} 
            onChange = {(e) => handleChange(e,name)} 
-           step =" 0.0001"
+           step = {0.0001}
            className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
            />
 )
 
 const Welcome = () => {
-    const { value } = useContext(TransactionsContext);
+    const { connectWallet, currentAccount, formData, handleChange, sendTransaction } = useContext(TransactionsContext);
     
     const {isLoading, setIsLoading} = useState(false)
 
-    const connectWallet = () => {
-        
-    }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        const {addressTo, amount, keyword, message } = formData;
+        e.preventDefault();
 
+        if(!addressTo || !amount || !keyword || !message){
+            alert("Please fill the form correctly.");
+            return false;
+        }else{
+            sendTransaction();
+        }
     }
 
     return (
@@ -41,9 +46,13 @@ const Welcome = () => {
                     <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base text-gradient"> 
                         Explore the crypto world. Buy and Sell cryptocurrency easily on krypto.
                     </p>
+
+                    {!currentAccount && (
                     <button type= "button" className="flex flex-row justify-center items-center my-5 p-3 rounded-full cursor-pointer bg-gradient-to-l from-red-500 to-blue-500 hover:bg-gradient-to-r" onClick={connectWallet}>
                        <p className="text-white text-base font-semibold">Connect Wallet</p> 
                     </button>
+                    )}
+
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                         <div className={`rounded-tl-2xl ${commonStyles}`}>
                             Reliability
@@ -76,8 +85,9 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light text-sm">
-                                    Address
+                                    Address 
                                 </p>
+                                <div className="text-xs font-semibold text-red mr-5">{currentAccount}</div>
                                 <p className="text-white font-semibold text-lg mt-1">
                                     Ethereum
                                 </p>
@@ -85,10 +95,10 @@ const Welcome = () => {
                         </div>
                     </div>
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism bg-gradient input-items">
-                        <Input placeholder="Address To" name = "addressTo" type="text" handleChange={()=>{}}/>
-                        <Input placeholder="Amount (ETH)" name = "amount" type="number" handleChange={()=>{}}/>
-                        <Input placeholder="Keyword (Gif)" name = "Keyword" type="text" handleChange={()=>{}}/>
-                        <Input placeholder="Enter Message" name = "message" type="text" handleChange={()=>{}}/>
+                        <Input placeholder="Address To" name = "addressTo" type="text" handleChange={handleChange}/>
+                        <Input placeholder="Amount (ETH)" name = "amount" type="number" handleChange={handleChange}/>
+                        <Input placeholder="Keyword (Gif)" name = "keyword" type="text" handleChange={handleChange}/>
+                        <Input placeholder="Enter Message" name = "message" type="text" handleChange={handleChange}/>
                         <div className="h-[1px] w-full bg-gray-400 my-2"/>
                         {isLoading ? (
                             <Loader/>
