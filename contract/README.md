@@ -1,0 +1,1 @@
+This is smart ethereum contract code for dealing rthers through the net.
