@@ -11,10 +11,10 @@ const TransactionsCard = ({addressTo, addressFrom, message, keyword, amount, url
         <div className='bg-[#666666] m-4 flex flex-1 2xl:min-w-[450px] 2xl:max-w-[500px] sm:min-w-[270px] sm:max-w-[300px] flex-col p-3 rounded-md hover:shadow-2xl'>
             <div className='flex flex-col items-center w-full'>
                 <div className='flex flex-col justify-start w-full mb-6 p-2'>
-                    <a href={`https://etherscan.io/address/${addressFrom}`} target="_blank" rel='noopener noreferrer'>
+                    <a href={`https://sepolia.etherscan.io/address/${addressFrom}`} target="_blank" rel='noopener noreferrer'>
                         <p className='text-white text-base'>From: {shortenAddress(addressFrom)}</p>
                     </a>
-                    <a href={`https://etherscan.io/address/${addressTo}`} target="_blank" rel='noopener noreferrer'>
+                    <a href={`https://sepolia.etherscan.io/address/${addressTo}`} target="_blank" rel='noopener noreferrer'>
                         <p className='text-white text-base'>To: {shortenAddress(addressTo)}</p>
                     </a>
                     <p className='text-white text-base'>Amount: {amount} ETH</p>
